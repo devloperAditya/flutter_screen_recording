@@ -39,7 +39,8 @@ class FlutterScreenRecordingPlugin(
     var mDisplayWidth: Int = 1280
     var mDisplayHeight: Int = 720
     var storePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + File.separator
-    var videoName: String? = ""
+    var videoName: String = ""
+    var videoName: String = ""
     var recordAudio: Boolean? = false;
     private val SCREEN_RECORD_REQUEST_CODE = 333
     private val SCREEN_STOP_RECORD_REQUEST_CODE = 334
@@ -56,7 +57,7 @@ class FlutterScreenRecordingPlugin(
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
 
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
@@ -84,7 +85,7 @@ class FlutterScreenRecordingPlugin(
 
                 mProjectionManager = registrar.context().applicationContext.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager?
 
-                videoName = call.argument<String?>("name")
+                videoName = call.argument<String>("name")
                 recordAudio = call.argument<Boolean?>("audio")
                 initMediaRecorder();
                 startRecordScreen()
